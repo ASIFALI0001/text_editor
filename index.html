@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Text Editor with Undo/Redo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Enhanced Text Editor</h1>
+        <textarea id="editor" placeholder="Start typing..."></textarea>
+        
+        <div class="button-container">
+            <button id="undoBtn" onclick="undo()" class="disabled" disabled>Undo</button>
+            <button id="redoBtn" onclick="redo()" class="disabled" disabled>Redo</button>
+        </div>
+
+        <div class="file-buttons">
+            <button id="clearBtn" onclick="clearText()">Clear Text</button>
+            <button id="saveBtn" onclick="saveFile()">Save File</button>
+        </div>
+
+        <div class="keyboard-shortcuts">
+            <p>Keyboard Shortcuts:</p>
+            <ul>
+                <li><strong>Ctrl + Z</strong> - Undo</li>
+                <li><strong>Ctrl + Y</strong> - Redo</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
