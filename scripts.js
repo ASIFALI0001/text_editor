@@ -1,38 +1,40 @@
+// Stacks for managing undo and redo functionality
 let undoStack = [];
 let redoStack = [];
 
+// DOM Elements
 const editor = document.getElementById('editor');
 const undoBtn = document.getElementById('undoBtn');
 const redoBtn = document.getElementById('redoBtn');
 const clearBtn = document.getElementById('clearBtn');
 const saveBtn = document.getElementById('saveBtn');
 
-// Save the current state in the undo stack
+// Function to save the current state into the undo stack
 function saveState() {
     undoStack.push(editor.value); 
-    redoStack = []; // Clear redo stack when a new action is taken
+    redoStack.length = 0; // Clear redo stack after a new action
     updateButtons();
 }
 
-// Undo the last action
+// Function to undo the last action
 function undo() {
     if (undoStack.length > 0) {
-        redoStack.push(editor.value); // Save current state in redo stack
-        editor.value = undoStack.pop(); // Get last state from undo stack
+        redoStack.push(editor.value); // Save current state to redo stack
+        editor.value = undoStack.pop(); // Revert to last saved state
         updateButtons();
     }
 }
 
-// Redo the last undone action
+// Function to redo the last undone action
 function redo() {
     if (redoStack.length > 0) {
-        undoStack.push(editor.value); // Save current state in undo stack
-        editor.value = redoStack.pop(); // Get last undone state
+        undoStack.push(editor.value); // Save current state to undo stack
+        editor.value = redoStack.pop(); // Restore last undone state
         updateButtons();
     }
 }
 
-// Clear the text editor
+// Function to clear the editor
 function clearText() {
     editor.value = '';
     undoStack = [];
@@ -40,7 +42,7 @@ function clearText() {
     updateButtons();
 }
 
-// Save the current content as a text file
+// Function to save the current content as a text file
 function saveFile() {
     const blob = new Blob([editor.value], { type: 'text/plain' });
     const link = document.createElement('a');
@@ -49,7 +51,7 @@ function saveFile() {
     link.click();
 }
 
-// Update the undo/redo button states
+// Function to update the state of the undo and redo buttons
 function updateButtons() {
     undoBtn.disabled = undoStack.length === 0;
     redoBtn.disabled = redoStack.length === 0;
@@ -57,10 +59,10 @@ function updateButtons() {
     redoBtn.classList.toggle('disabled', redoStack.length === 0);
 }
 
-// Save the state whenever the content of the editor changes
+// Event listener to save the state when the content of the editor changes
 editor.addEventListener('input', saveState);
 
-// Keyboard shortcuts for undo and redo
+// Keyboard shortcuts for undo and redo functionality
 document.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.key === 'z') {
         event.preventDefault();
